@@ -191,11 +191,12 @@ print_status() {
         for device in "${paired_devices[@]}"; do
             if device_connected $device; then
                 device_alias=$(bluetoothctl info $device | grep "Alias" | cut -d ' ' -f 2-)
+                battery_percentage=$(bluetoothctl info $device | grep "Battery" | grep -o '[0-9]\+' | tail -1)
 
                 if [ $counter -gt 0 ]; then
-                    printf ", %s" "$device_alias"
+                    printf ", %s" "$device_alias $battery_percentage%"
                 else
-                    printf " %s" "$device_alias"
+                    printf " %s" "$device_alias $battery_percentage%"
                 fi
 
                 ((counter++))
