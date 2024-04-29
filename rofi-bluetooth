@@ -208,9 +208,13 @@ print_status() {
                 ((counter++))
             fi
         done
+        
+        if [ $counter -eq 0 ]; then
+            printf "Waiting..."
+        fi
         printf "\n"
     else
-        echo ""
+        printf "Waiting..."
     fi
 }
 
